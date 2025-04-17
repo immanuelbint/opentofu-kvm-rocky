@@ -1,0 +1,20 @@
+#cloud-config
+     hostname: ${hostname}
+     fqdn: ${hostname}.${domain}
+     prefer_fqdn_over_hostname: true
+     ssh_pwauth: true
+     disable_root: false
+     chpasswd:
+       list: |
+         root:password-here
+       expire: false
+
+     users:
+       - name: apps
+         sudo: ALL=(ALL) NOPASSWD:ALL
+         groups: users, admin
+         home: /home/apps
+         shell: /bin/bash
+         lock_passwd: true
+         ssh-authorized-keys:
+           - ssh-rsa <your-id-rsa>
